@@ -1,7 +1,9 @@
 CC=g++
 LD=ld
-LDFLAGS=-lboost_regex -lboost_system -lyaml-cpp
-CFLAGS=-std=c++0x -Wall -Werror -fPIC -g -O3
+#LDFLAGS=-lboost_regex -lboost_system -lyaml-cpp
+#CFLAGS=-std=c++0x -Wall -Werror -fPIC -g -O3
+LDFLAGS=-Lgtest -lboost_regex -lboost_system -lyaml-cpp
+CFLAGS=-std=c++14 -Wall -Werror -fPIC -g -O3
 
 # wildcard object build target
 %.o: %.cpp
@@ -27,6 +29,10 @@ clean:
 	find . -name "*.o" -exec rm -rf {} \; # clean up object files
 	find . -name "*.d" -exec rm -rf {} \; # clean up dependencies
 	rm -f UaParserTest *.a *.so
+
+install:
+	cp libuaparser_cpp.a /usr/local/lib/
+	cp UaParser.h /usr/local/include/
 
 # automatically include the generated *.d dependency make targets
 # that are created from the wildcard %.o build target above
